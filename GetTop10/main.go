@@ -35,17 +35,17 @@ func callApi(service *youtube.Service, videos map[string]string) {
 	nowUTC := time.Now().UTC()
 	jst := time.FixedZone("JST", +9*60*60)
 	nowJST := nowUTC.In(jst)
-	add3day := nowJST.AddDate(0, 0, 3)
+	fromJST := nowJST.AddDate(0, 0, -3)
 
-	fmt.Printf("from %v to %v search...\n\n", nowJST.Format(time.RFC3339), add3day.Format(time.RFC3339))
+	fmt.Printf("from %v to %v search...\n\n", fromJST.Format(time.RFC3339), nowJST.Format(time.RFC3339))
 
 	call := service.Search.List([]string{"id, snippet"}).
 		Q(targetkeyword).
 		MaxResults(10).
 		Type("video").
 		RegionCode("JP").
-		PublishedAfter(nowJST.Format(time.RFC3339)).
-		PublishedBefore(add3day.Format(time.RFC3339)).
+		PublishedAfter(fromJST.Format(time.RFC3339)).
+		PublishedBefore(nowJST.Format(time.RFC3339)).
 		Order("rating")
 
 	response, err := call.Do()
