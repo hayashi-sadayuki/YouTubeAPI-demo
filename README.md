@@ -7,7 +7,7 @@ GetSearchKeywordに格納しています。
 GetTop10に格納しています。
 
 ## 2
-未完成
+question2に格納しています。
 
 ## 3
-未完成
+question3に格納しています。
